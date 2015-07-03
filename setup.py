@@ -1,11 +1,8 @@
-try:
-  from setuptools import setup, find_packages
-except ImportError:
-  from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
   name='facebook-online-friend-tracker',
-  version='1.0.0',
+  version='1.0.1',
   description='This tool tracks the number of online friends a user has on Facebook at a given time.',
   author='Baraa Hamodi',
   author_email='bhamodi@uwaterloo.ca',
@@ -19,14 +16,15 @@ setup(
     'Operating System :: OS Independent',
     'Programming Language :: Python',
   ],
-  packages=find_packages(exclude=['tests']),
+  include_package_data=True,
+  packages=find_packages(),
   install_requires=[
     'selenium>=2.46.0',
     'openpyxl>=2.2.5',
   ],
   entry_points={
     'console_scripts': [
-      'facebook-online-friend-tracker = facebook_tracker:main',
+      'facebook-online-friend-tracker=src:main',
     ],
   },
 )
