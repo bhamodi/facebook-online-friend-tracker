@@ -13,13 +13,15 @@ import time
 def main():
   # Params
   parser = argparse.ArgumentParser()
-  parser.add_argument('--user', dest='username', required=True, help='the email that you login to Facebook with')
-  parser.add_argument('--pass', dest='password', required=True, help='the password that you login to Facebook with')
-  parser.add_argument('--dir', dest='directory', required=True, help='the directory location of the excel sheet')
+  parser.add_argument('--user', dest='facebook_username', required=True, help='the email that you login to Facebook with')
+  parser.add_argument('--pass', dest='facebook_password', required=True, help='the password that you login to Facebook with')
+  parser.add_argument('--path', dest='path_to_excel_file', required=True, help='the path to the excel file')
+
   args = parser.parse_args()
-  fb_email = args.username
-  fb_password = args.password
-  file_path_to_spreadsheet = args.directory
+  facebook_username = args.facebook_username
+  facebook_password = args.facebook_password
+  path_to_excel_file = args.path_to_excel_file
+
   # Initialize Chrome WebDriver and change default timeout
   driver = webdriver.Chrome()
   driver.implicitly_wait(180)
@@ -28,12 +30,12 @@ def main():
   print('Logging into Facebook...')
   driver.get('https://www.facebook.com/')
   emailBox = driver.find_element_by_id('email')
-  emailBox.send_keys(fb_email)
+  emailBox.send_keys(facebook_username)
   passwordBox = driver.find_element_by_id('pass')
-  passwordBox.send_keys(fb_password)
+  passwordBox.send_keys(facebook_password)
   passwordBox.send_keys(Keys.RETURN)
 
-  # Wait for number of friends to update
+  # Wait for Facebook to update the number of friends dynamically
   print('Waiting for Facebook to update friends list...')
   time.sleep(120)
 
@@ -54,7 +56,7 @@ def main():
   today = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 
   # Load existing spreadsheet
-  workbook = load_workbook(file_path_to_spreadsheet)
+  workbook = load_workbook(path_to_excel_file)
   worksheet = workbook.get_sheet_by_name('Sheet1')
 
   # Find first empty cell and populate
@@ -66,4 +68,4 @@ def main():
       break
 
   # Save updated spreadsheet
-  workbook.save(file_path_to_spreadsheet)
+  workbook.save(path_to_excel_file)

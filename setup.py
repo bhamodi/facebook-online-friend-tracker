@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name='facebook-online-friend-tracker',
-  version='1.0.1',
+  version='1.0.2',
   description='This tool tracks the number of online friends a user has on Facebook at a given time.',
   author='Baraa Hamodi',
   author_email='bhamodi@uwaterloo.ca',
