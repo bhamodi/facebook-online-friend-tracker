@@ -2,9 +2,13 @@
 
 Track the number of online friends you have on Facebook at any given time!
 
-## Requirements
+## Prerequisites
 
 To be able to use this tool, you will need to point have a Facebook account, an Excel sheet (`.xlsx`), and a server (or computer) that can run a cron job / scheduled task.
+
+## Dependencies
+
+This tool uses [Selenium](https://pypi.python.org/pypi/selenium) to scrape the data and [Openpyxl](https://pypi.python.org/pypi/openpyxl) to store the data in an Excel sheet.
 
 ## How to Setup
 
