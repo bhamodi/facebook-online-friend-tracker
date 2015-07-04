@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import StaleElementReferenceException
 from openpyxl import load_workbook
+from os.path import exists
 from datetime import datetime
 import time
 
@@ -21,6 +22,10 @@ def main():
   facebook_username = args.facebook_username
   facebook_password = args.facebook_password
   path_to_excel_file = args.path_to_excel_file
+
+  # Verify that the Excel file exists before scraping
+  if not exists(path_to_excel_file):
+    raise Exception(path_to_excel_file + ' does not exist. Please try again.')
 
   # Initialize Chrome WebDriver and change default timeout
   driver = webdriver.Chrome()
@@ -64,7 +69,8 @@ def main():
     if row[0].value == None:
       row[0].value = today
       row[1].value = onlineFriendsCount
-      print('Done! Added: ' + today + ' -> ' + str(onlineFriendsCount) + ' to the spreadsheet.')
+      print('Done! Detected ' + str(onlineFriendsCount) + ' online friends.')
+      print('Added: ' + today + ' -> ' + str(onlineFriendsCount) + ' to the spreadsheet.')
       break
 
   # Save updated spreadsheet
