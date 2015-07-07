@@ -2,8 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
   name='facebook-online-friend-tracker',
-  version='1.0.5',
-  description='This tool tracks the number of online friends a user has on Facebook at a given time.',
+  version='1.0.6',
+  description='This tool tracks the number of online friends a user has on Facebook at any given time.',
+  long_description=open('README.rst').read(),
   url='https://github.com/bhamodi/facebook-online-friend-tracker',
   author='Baraa Hamodi',
   author_email='bhamodi@uwaterloo.ca',
@@ -21,7 +22,7 @@ setup(
     'Topic :: Software Development',
     'Topic :: Utilities',
   ],
-  keywords='facebook tracker python scraper selenium',
+  keywords='facebook online friend tracker python scraper selenium analysis optimization',
   packages=find_packages(),
   install_requires=[
     'selenium>=2.46.0',
