@@ -1,7 +1,7 @@
 facebook-online-friend-tracker
 ==============================
 
-Track the number of online friends you have on Facebook at any given time!
+Track the number of online friends you have on Facebook at any given time! Check out my `results and conclusions`_ after running this tool for two weeks!
 
 Prerequisites
 -------------
@@ -21,6 +21,7 @@ How to Setup
 3. The command to run the tool is: ``facebook-online-friend-tracker --user 'example@example.com' --pass 'your_password' --path 'path/to/spreadsheet.xlsx'``
 4. After a certain amount of time, you will be able to analyze the trend in the Excel sheet you specified. (I waited 2 full weeks before analyzing the data and finding the best time to post on Facebook.)
 
+.. _results and conclusions: https://blog.optimizely.com/2015/07/08/how-to-find-the-best-time-to-post-on-facebook/
 .. _Python: https://www.python.org/
 .. _Selenium: https://pypi.python.org/pypi/selenium
 .. _Openpyxl: https://pypi.python.org/pypi/openpyxl
