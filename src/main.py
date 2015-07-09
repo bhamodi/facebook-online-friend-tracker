@@ -3,17 +3,18 @@
 
 import argparse
 import csv
+import os
 import time
 
 from datetime import datetime
-from os.path import exists
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 def main():
+  print('\nStarting script...')
   parser = argparse.ArgumentParser()
-  parser.add_argument('--user', dest='facebook_username', required=True, help='the email that you login to Facebook with')
-  parser.add_argument('--pass', dest='facebook_password', required=True, help='the password that you login to Facebook with')
+  parser.add_argument('--user', dest='facebook_username', required=True, help='the email that you login to facebook with')
+  parser.add_argument('--pass', dest='facebook_password', required=True, help='the password that you login to facebook with')
   parser.add_argument('--path', dest='path_to_csv_file', required=True, help='the path to the csv file')
 
   args = parser.parse_args()
@@ -22,11 +23,19 @@ def main():
   path_to_csv_file = args.path_to_csv_file
 
   # Verify that the CSV file exists before scraping
-  if not exists(path_to_csv_file):
-    raise Exception(path_to_csv_file + ' does not exist. Please try again.')
+  print('Verifying that the CSV file exists...')
+  if os.path.exists(path_to_csv_file):
+    print(path_to_csv_file + ' has been found.')
+  else:
+    print('[WARNING] ' + path_to_csv_file + ' does not exist. Creating a new CSV file now...')
+    path_to_csv_file = os.path.join(os.getcwd(), 'facebook_online_friend_tracker_data.csv')
+    with open(path_to_csv_file, 'w') as f:
+      writer = csv.writer(f)
+      writer.writerow(['Timestamp', 'Number of Online Friends'])
+      print('New CSV file created at: ' + path_to_csv_file)
 
   # Initialize Chrome WebDriver and change default timeout
-  print('Initializing Chrome WebDriver...')
+  print('\nInitializing Chrome WebDriver...')
   driver = webdriver.Chrome()
   driver.implicitly_wait(180)
 
@@ -45,7 +54,7 @@ def main():
 
   # Scrape the number of online friends
   onlineFriendsCount = int(driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()'))
-  print('Done! Detected ' + str(onlineFriendsCount) + ' online friends.')
+  print('\nDone! Detected ' + str(onlineFriendsCount) + ' online friends.')
 
   # Close Chrome WebDriver
   driver.close()
@@ -58,5 +67,3 @@ def main():
     writer = csv.writer(f)
     writer.writerow([today, onlineFriendsCount])
     print('Added: ' + today + ' -> ' + str(onlineFriendsCount) + ' to the spreadsheet.')
-
-main()
