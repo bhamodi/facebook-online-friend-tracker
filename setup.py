@@ -26,6 +26,7 @@ setup(
   packages=find_packages(),
   install_requires=[
     'selenium>=2.46.0',
+    'chromedriver_installer>=0.0.4'
   ],
   entry_points={
     'console_scripts': [
