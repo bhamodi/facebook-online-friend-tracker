@@ -1,25 +1,25 @@
 facebook-online-friend-tracker
 ==============================
 
-Track the number of online friends you have on Facebook at any given time! Check out my `results and conclusions`_ after running this tool for two weeks!
+Track the number of online friends you have on Facebook at any given time! Check out my `results and conclusions`_ after running this script for two weeks!
 
 Prerequisites
 -------------
 
-All you need to use this tool is a Facebook account and a `CSV`_ file.
+All you need to use this script is a Facebook account and a `CSV`_ file.
 
 Dependencies
 ------------
 
-This tool is built in `Python`_. It uses `Selenium`_ and `Chromedriver`_ to scrape the number of online friends you have on Facebook.
+This script is built in `Python`_. It uses `Selenium`_ and `Chromedriver`_ to scrape the number of online friends you have on Facebook.
 
 How to Setup
 ------------
 
 1. Have `Python`_ installed.
 2. Install the script and all dependencies via `pip`_ by simply running: ``pip install facebook-online-friend-tracker``
-3. (Optional) Setup a `cron job`_ to run the tool at a certain frequency. (I used 15 minute intervals).
-4. The command to run the tool is: ``facebook-online-friend-tracker --user 'example@example.com' --pass 'your_password' --path 'path/to/csv_file.csv'``
+3. (Optional) Setup a `cron job`_ to run the script at a certain frequency. (I used 15 minute intervals).
+4. The command to run the script is: ``facebook-online-friend-tracker --user 'example@example.com' --pass 'your_password' --path 'path/to/csv_file.csv'``
 5. After some time, you will be able to analyze the trend in the collected data. (I waited 2 full weeks before analyzing the data and finding the `best time to post on Facebook`_.)
 
 .. _results and conclusions: https://blog.optimizely.com/2015/07/08/how-to-find-the-best-time-to-post-on-facebook/
