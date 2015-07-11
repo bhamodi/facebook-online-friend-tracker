@@ -48,10 +48,6 @@ def main():
   passwordBox.send_keys(facebook_password)
   passwordBox.send_keys(Keys.RETURN)
 
-  # Wait for Facebook to update the number of friends dynamically
-  print('Waiting for Facebook to update friends list... (This takes approximately 2 minutes.)')
-  time.sleep(120)
-
   # Scrape the number of online friends
   onlineFriendsCount = int(driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()'))
   print('\nDone! Detected ' + str(onlineFriendsCount) + ' online friends.')
