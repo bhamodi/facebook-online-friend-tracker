@@ -8,7 +8,6 @@ import time
 
 from datetime import datetime
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 
 def main():
   print('\nStarting script...')
@@ -46,7 +45,7 @@ def main():
   emailBox.send_keys(facebook_username)
   passwordBox = driver.find_element_by_id('pass')
   passwordBox.send_keys(facebook_password)
-  passwordBox.send_keys(Keys.RETURN)
+  driver.find_element_by_id('loginbutton').click()
 
   # Wait for Facebook to update the number of friends dynamically via an ajax call
   print('Waiting for Facebook to update friends list... (This takes approximately 2 minutes.)')
