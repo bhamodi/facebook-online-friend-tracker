@@ -25,8 +25,8 @@ setup(
   keywords='facebook online friend tracker python scraper selenium analysis optimization',
   packages=find_packages(),
   install_requires=[
+    'chromedriver_installer>=0.0.4',
     'selenium>=2.46.0',
-    'chromedriver_installer>=0.0.4'
   ],
   entry_points={
     'console_scripts': [

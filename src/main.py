@@ -48,6 +48,23 @@ def main():
   passwordBox.send_keys(facebook_password)
   passwordBox.send_keys(Keys.RETURN)
 
+  # Wait for Facebook to update the number of friends dynamically via an ajax call
+  print('Waiting for Facebook to update friends list... (This takes approximately 2 minutes.)')
+  script = '''var open = window.XMLHttpRequest.prototype.open;
+              function openReplacement(method, url, async, user, password) {
+                var syncMode = async !== false ? 'async' : 'sync';
+                if (url === '/ajax/chat/buddy_list.php') {
+                  var done = document.createElement('div');
+                  done.id = 'doneScraping';
+                  document.body.appendChild(done);
+                }
+                return open.apply(this, arguments);
+              }
+              window.XMLHttpRequest.prototype.open = openReplacement;'''
+  driver.execute_script(script)
+  doneScraping = driver.find_element_by_id('doneScraping')
+  time.sleep(5)
+
   # Scrape the number of online friends
   onlineFriendsCount = int(driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()'))
   print('\nDone! Detected ' + str(onlineFriendsCount) + ' online friends.')
