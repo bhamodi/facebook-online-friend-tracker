@@ -8,6 +8,7 @@ import time
 
 from datetime import datetime
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 
 def main():
   print('\nStarting script...')
@@ -61,8 +62,11 @@ def main():
               }
               window.XMLHttpRequest.prototype.open = openReplacement;'''
   driver.execute_script(script)
-  doneScraping = driver.find_element_by_id('doneScraping')
-  time.sleep(5)
+  try:
+    doneScraping = driver.find_element_by_id('doneScraping')
+    time.sleep(5)
+  except NoSuchElementException:
+    pass
 
   # Scrape the number of online friends
   onlineFriendsCount = int(driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()'))
