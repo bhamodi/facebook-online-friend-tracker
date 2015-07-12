@@ -37,7 +37,7 @@ def main():
   # Initialize Chrome WebDriver and change default timeout
   print('\nInitializing Chrome WebDriver...')
   driver = webdriver.Chrome()
-  driver.implicitly_wait(180)
+  driver.implicitly_wait(120)
 
   # Go to www.facebook.com and log in using the provided credentials
   print('Logging into Facebook...')
