@@ -34,10 +34,13 @@ def main():
       writer.writerow(['Timestamp', 'Number of Online Friends'])
       print('New CSV file created at: ' + path_to_csv_file)
 
-  # Initialize Chrome WebDriver and change default timeout
+  # Initialize Chrome WebDriver
   print('\nInitializing Chrome WebDriver...')
   driver = webdriver.Chrome()
+
+  # Change default timeout and window size
   driver.implicitly_wait(120)
+  driver.set_window_size(700, 700)
 
   # Go to www.facebook.com and log in using the provided credentials
   print('Logging into Facebook...')
