@@ -30,7 +30,7 @@ def main():
     print('[WARNING] ' + path_to_csv_file + ' does not exist. Creating a new CSV file now...')
     path_to_csv_file = os.path.join(os.getcwd(), 'facebook_online_friend_tracker_data.csv')
     with open(path_to_csv_file, 'w') as f:
-      writer = csv.writer(f)
+      writer = csv.writer(f, lineterminator='\n')
       writer.writerow(['Timestamp', 'Number of Online Friends'])
       print('New CSV file created at: ' + path_to_csv_file)
 
@@ -83,6 +83,6 @@ def main():
 
   # Append row to the CSV file
   with open(path_to_csv_file, 'a') as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, lineterminator='\n')
     writer.writerow([today, onlineFriendsCount])
     print('Added: ' + today + ' -> ' + str(onlineFriendsCount) + ' to the spreadsheet.')
