@@ -72,7 +72,11 @@ def main():
     pass
 
   # Scrape the number of online friends
-  onlineFriendsCount = int(driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()'))
+  onlineFriendsCount = driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()')
+  if onlineFriendsCount:
+    onlineFriendsCount = int(onlineFriendsCount)
+  else:
+    onlineFriendsCount = 0
   print('\nDone! Detected ' + str(onlineFriendsCount) + ' online friends.')
 
   # Close Chrome WebDriver
