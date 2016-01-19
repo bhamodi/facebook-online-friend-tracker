@@ -4,24 +4,33 @@
 import csv
 import getpass
 import os
-import readline
 import time
 
 from datetime import datetime
 from selenium import webdriver
 
-def main():
-  # Enable tab completion for raw input.
+# Enable tab completion for raw input.
+try:
+  import readline
   readline.parse_and_bind('tab: complete')
+except ImportError:
+  pass
 
+# Support both Python 2.x and 3.x user input functions.
+try:
+  input = raw_input
+except NameError:
+  pass
+
+def main():
   # Prompt user for Facebook credentials.
   print('\nFacebook Online Friend Tracker starting...')
-  facebook_username = raw_input('Facebook username: ')
+  facebook_username = input('Facebook username: ')
   facebook_password = getpass.getpass('Facebook password: ')
 
   # Prompt user for script interval time and convert to seconds.
   while True:
-    interval_time = int(raw_input('How often would you like to check how many friends are online? Enter a number between 5 and 30 minutes: '), 10)
+    interval_time = int(input('How often would you like to check how many friends are online? Enter a number between 5 and 30 minutes: '), 10)
     if interval_time >= 5 and interval_time <= 30:
       break
     else:
@@ -30,7 +39,7 @@ def main():
 
   # Prompt user for total run time and convert to seconds.
   while True:
-    total_time = int(raw_input('How long would you like to run this tool for? Enter a number between 1 and 720 hours: '), 10)
+    total_time = int(input('How long would you like to run this tool for? Enter a number between 1 and 720 hours: '), 10)
     if total_time >= 1 and total_time <= 720:
       break
     else:
@@ -38,7 +47,7 @@ def main():
   total_time = total_time * 3600
 
   # Prompt for the CSV file path and verify that the CSV file exists before scraping.
-  path_to_csv_file = raw_input('Path to the CSV file: ')
+  path_to_csv_file = input('Path to the CSV file: ')
   print('Verifying that the CSV file exists...')
   if os.path.exists(path_to_csv_file):
     print(path_to_csv_file + ' has been found.')
