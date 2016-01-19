@@ -18,9 +18,8 @@ How to Setup
 
 1. Have `Python`_ installed.
 2. Install the script and all dependencies via `pip`_ by simply running: ``pip install facebook-online-friend-tracker``
-3. (Optional) Setup a `cron job`_ to run the script at a certain frequency. (I used 15 minute intervals).
-4. The command to run the script is: ``facebook-online-friend-tracker --user 'example@example.com' --pass 'your_password' --path 'path/to/csv_file.csv'``
-5. After some time, you will be able to analyze the trend in the collected data. (I waited 2 full weeks before analyzing the data and finding the `best time to post on Facebook`_.)
+3. The command to run the script is: ``facebook-online-friend-tracker``
+4. After some time, you will be able to analyze the trend in the collected data. (I waited 2 full weeks before analyzing the data and finding the `best time to post on Facebook`_.)
 
 .. _results and conclusions: https://blog.optimizely.com/2015/07/08/how-to-find-the-best-time-to-post-on-facebook/
 .. _CSV: https://en.wikipedia.org/wiki/Comma-separated_values
@@ -28,5 +27,4 @@ How to Setup
 .. _Selenium: https://pypi.python.org/pypi/selenium
 .. _Chromedriver: https://pypi.python.org/pypi/chromedriver_installer
 .. _pip: https://pypi.python.org/pypi/facebook-online-friend-tracker
-.. _cron job: http://askubuntu.com/questions/2368/how-do-i-set-up-a-cron-job
 .. _best time to post on Facebook: https://blog.optimizely.com/2015/07/08/how-to-find-the-best-time-to-post-on-facebook/
