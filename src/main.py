@@ -8,6 +8,9 @@ import time
 
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 # Enable tab completion for raw input.
 try:
@@ -31,7 +34,7 @@ def main():
   # Prompt user for script interval time and convert to seconds.
   while True:
     interval_time = int(input('How often would you like to check how many friends are online? Enter a number between 5 and 30 minutes: '), 10)
-    if interval_time >= 5 and interval_time <= 30:
+    if 5 <= interval_time <= 30:
       break
     else:
       print('The number you entered was not between 5 and 30.')
@@ -40,7 +43,7 @@ def main():
   # Prompt user for total run time and convert to seconds.
   while True:
     total_time = int(input('How long would you like to run this tool for? Enter a number between 1 and 720 hours: '), 10)
-    if total_time >= 1 and total_time <= 720:
+    if 1 <= total_time <= 720:
       break
     else:
       print('The number you entered was not between 1 and 720.')
@@ -78,7 +81,10 @@ def main():
   emailBox.send_keys(facebook_username)
   passwordBox = driver.find_element_by_id('pass')
   passwordBox.send_keys(facebook_password)
-  driver.find_element_by_id('loginbutton').click()
+
+  wait = WebDriverWait(driver, 10)
+  wait.until(EC.element_to_be_clickable((By.ID, 'loginbutton'))).click()
+  # driver.find_element_by_id('loginbutton').click()
 
   while iteration < number_of_iterations:
     # Wait for Facebook to update the number of online friends.
