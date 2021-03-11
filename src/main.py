@@ -5,12 +5,16 @@ import csv
 import getpass
 import os
 import time
+import json
 
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+
+SLEEP = 10 # in seconds
+
 
 # Enable tab completion for raw input.
 try:
@@ -26,31 +30,32 @@ except NameError:
   pass
 
 def main():
+  #load config
+  config = json.load(open('./config.json'))
+  print(config)
   # Prompt user for Facebook credentials.
   print('\nFacebook Online Friend Tracker starting...')
   facebook_username = input('Facebook username: ')
   facebook_password = getpass.getpass('Facebook password: ')
 
   # Prompt user for script interval time and convert to seconds.
-  while True:
-    interval_time = int(input('How often would you like to check how many friends are online? Enter a number between 5 and 30 minutes: '), 10)
-    if 5 <= interval_time <= 30:
-      break
-    else:
-      print('The number you entered was not between 5 and 30.')
+  interval_time = config['interval_time']
+  if 5 <= interval_time <= 30:
+    print(f"interval_time {interval_time} minutes")
+  else:
+    print('The number you entered was not between 5 and 30. and might be out of bounds, continuing')
   interval_time = interval_time * 60
 
-  # Prompt user for total run time and convert to seconds.
-  while True:
-    total_time = int(input('How long would you like to run this tool for? Enter a number between 1 and 720 hours: '), 10)
-    if 1 <= total_time <= 720:
-      break
-    else:
-      print('The number you entered was not between 1 and 720.')
+  total_time = config['total_time']
+  if 1 <= total_time <= 720:
+    print(f"total_time {total_time} minutes")
+  else:
+    print('The number you entered was not between 1 and 720. hours and might be out of bounds, continuing')
   total_time = total_time * 3600
 
   # Prompt for the CSV file path and verify that the CSV file exists before scraping.
-  path_to_csv_file = input('Path to the CSV file: ')
+  # path_to_csv_file = input('Path to the CSV file: ')
+  path_to_csv_file = config['path_to_csv_file']
   print('Verifying that the CSV file exists...')
   if os.path.exists(path_to_csv_file):
     print(path_to_csv_file + ' has been found.')
@@ -83,19 +88,28 @@ def main():
   passwordBox.send_keys(facebook_password)
 
   wait = WebDriverWait(driver, 10)
-  wait.until(EC.element_to_be_clickable((By.ID, 'loginbutton'))).click()
-  # driver.find_element_by_id('loginbutton').click()
+  wait.until(EC.element_to_be_clickable((By.XPATH, "//*[text()='Accept All']"))).click()
+  wait1 = WebDriverWait(driver, 10)
+  wait1.until(EC.element_to_be_clickable((By.XPATH, "//button"))).click()
 
   while iteration < number_of_iterations:
     # Wait for Facebook to update the number of online friends.
-    print('\nWaiting for Facebook to update friends list... (This takes approximately 3 minutes.)')
-    time.sleep(180)
+    print(f'\nat astart of while loop, sleeping {SLEEP} seconds')
+    time.sleep(SLEEP)
 
     # Scrape the number of online friends.
-    onlineFriendsCount = driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()')
-    if onlineFriendsCount:
-      onlineFriendsCount = int(onlineFriendsCount)
-    else:
+    # onlineFriendsCount = driver.find_element_by_xpath('//*[@id="fbDockChatBuddylistNub"]/a/span[2]/span').text.strip('()')
+
+    # onlineFriendsCount = driver.find_element_by_xpath('//*[text()="\'s birthday is today."]/strong').text
+    print('debug0')
+    try:
+      onlineFriendsCount = driver.find_element_by_xpath("// *[text() = 'Lucjan Dybczak'] /../../../../../../ div / div / div / div / div / span")
+      print('debug')
+      # print('czyjestbanana', onlineFriendsCount.text)
+      if onlineFriendsCount:
+        # onlineFriendsCount = str(onlineFriendsCount)
+        onlineFriendsCount = 1
+    except:
       onlineFriendsCount = 0
     print('Done! Detected ' + str(onlineFriendsCount) + ' online friends.')
 
@@ -109,7 +123,7 @@ def main():
       print('Added: ' + today + ' -> ' + str(onlineFriendsCount) + ' to the spreadsheet.')
 
     # Wait for next interval and increment iteration counter.
-    time.sleep(interval_time - 180)
+    time.sleep(interval_time - SLEEP)
     iteration += 1
 
   # Close Chrome WebDriver.
